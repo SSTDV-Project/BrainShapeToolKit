@@ -1,0 +1,10 @@
+.ipynb_checkpoints/
+__pycache__/
+
+data/
+
+docker/*
+!docker/environment.yml
+
+*.ini
+!config_example.ini

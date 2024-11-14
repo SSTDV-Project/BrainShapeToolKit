@@ -1,0 +1,42 @@
+name: bstk
+channels:
+  - nvidia
+  - pytorch
+  - conda-forge
+  - pyg
+dependencies:
+  - python >=3.10,<3.13
+  - pytorch::pytorch ==1.13.1
+  - pytorch::torchvision ==0.14.1
+  - pytorch::torchaudio ==0.13.1
+  - nvidia::cudatoolkit ==11.7
+  - jupyterlab >=4
+  - matplotlib
+  - scipy
+  - scikit-image
+  - scikit-learn
+  - numba
+  - lapy
+  - trimesh
+  - easydict
+  - einops
+  - tqdm
+  - k3d
+  - tensorboard
+  - nibabel
+  - nilearn
+  - nipype
+  - meshio
+  - pyg::pyg
+  - pyg::pytorch-cluster
+  - pyg::pytorch-scatter
+  - pandas
+  - seaborn
+  - cupy
+  - sdmetrics
+  - mkl==2024.0
+  - pip:
+    - fpsample
+    - xgboost
+    - jupyterlab-nvidia-nsight
+    - gspread

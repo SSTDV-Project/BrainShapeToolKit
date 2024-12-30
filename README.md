@@ -1,6 +1,9 @@
 BrainShapeToolKit
 =================
 
+[[Technical Report](https://github.com/SSTDV-Project/BrainShapeToolKit/blob/master/docs/static/pdfs/tech-report.pdf)]
+[[Synthetic dataset](https://github.com/SSTDV-Project/BrainShapeToolKit/tree/master/opendata/cortical_thickness)]
+
 ## Install dependencies
 ```bash
 $ conda env create -f docker/environment.yml

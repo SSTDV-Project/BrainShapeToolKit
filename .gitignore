@@ -7,4 +7,4 @@ docker/*
 !docker/environment.yml
 
 *.ini
-!config_example.ini
+!config_example*.ini

@@ -1,7 +1,7 @@
 .ipynb_checkpoints/
 __pycache__/
 
-data/
+data*/
 
 docker/*
 !docker/environment.yml

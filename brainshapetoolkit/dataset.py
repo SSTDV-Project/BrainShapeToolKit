@@ -102,23 +102,28 @@ class RegistrationDataset:
     
     @functools.cache
     def get_surfaces(self, dir, atlas_key=None):
-        if atlas_key is None:
-            atlas_key = self.atlas_key
-        template_shape = self.template.get_surface(*atlas_key)
-
-        if dir is None:
-            return template_shape
-        
-        deforms = self.get_deform(dir)
-
-        deformed_shape = {
-            key: apply_deform(surface, *deforms) for key, surface in template_shape.items()
-        }
-
-        return deformed_shape
+        try:
+            if atlas_key is None:
+                atlas_key = self.atlas_key
+            template_shape = self.template.get_surface(*atlas_key)
+    
+            if dir is None:
+                return template_shape
+            
+            deforms = self.get_deform(dir)
+    
+            deformed_shape = {
+                key: apply_deform(surface, *deforms) for key, surface in template_shape.items()
+            }
+    
+            return deformed_shape
+        except Exception as e:
+            print(f"Error processing get_surfaces({dir=}, {atlas_key=})")
+            print(e)
+            return None
 
 class ParcellationDataset:
-    def __init__(self, data_root, dirs=None, dir_fspath=None, dir2fspath_fn=None, parc_names=None):
+    def __init__(self, data_root, dirs=None, dir_fspath=None, dir2fspath_fn=None, stats_subpath=None):
         """
         data_root: path_like
         dirs: list[str], relevant subdirectories within data_root, all if set None
@@ -138,17 +143,23 @@ class ParcellationDataset:
 
         self.dir_fspath = dir_fspath
 
+        if stats_subpath is None:
+            stats_subpath = ('stats',)
+        self.stats_subpath = stats_subpath
+
     def _get_paths(self, dirname):
         fs_path = os.path.join(self.root, self.dir_fspath[dirname])
-        lh_path = os.path.join(fs_path, 'stats', 'lh.aparc.stats')
-        rh_path = os.path.join(fs_path, 'stats', 'rh.aparc.stats')
+        lh_path = os.path.join(fs_path, *self.stats_subpath, 'lh.aparc.stats')
+        rh_path = os.path.join(fs_path, *self.stats_subpath, 'rh.aparc.stats')
         parc_path = os.path.join(fs_path, 'mri', 'aparc+aseg.mgz')
         return lh_path, rh_path, parc_path
 
-    def check_files(self):
+    def check_files(self, exclude_parc_path=False):
         all_checked = True
         for dir in self.dirs:
             paths = self._get_paths(dir)
+            if exclude_parc_path:
+                paths = paths[:-1]
             for path in paths:
                 if not os.path.isfile(path):
                     print(f'File not found! ({path})')

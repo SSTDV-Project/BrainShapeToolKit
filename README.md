@@ -20,6 +20,11 @@ python ./synthesize.py --config ./configs/config_example.ini
 python ./evaluate.py --gt_path ./data/real_data/real_ALL_{}.csv --syn_path ./data/synth_data/synth_ALL_{}.csv --output_path ./data/eval/
 ```
 
+## Longitudinal shape synthesis
+```bash
+python ./synthesize_longitudinal.py --config ./configs/config_example_longitudinal.ini
+```
+
 ## Additional files
 * A template shape file containing simplified meshes from the brain atlas is required. Additional repository constructing the template shape will be available soon.
 
